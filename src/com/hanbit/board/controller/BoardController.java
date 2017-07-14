@@ -1,16 +1,19 @@
 package com.hanbit.board.controller;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
+
 import com.hanbit.board.domain.BoardBean;
+import com.hanbit.board.service.BoardService;
 import com.hanbit.board.serviceImpl.BoardServiceImpl;
 
 public class BoardController {
 	public static void main(String[] args){
 		
 		BoardBean board = null;
-		BoardBean[] list;
-		String sList = "";
-		BoardServiceImpl service = new BoardServiceImpl();
+		List<BoardBean> list;
+		BoardService service = new BoardServiceImpl();
 		
 		while(true){
 			switch(JOptionPane.showInputDialog("0.close 1.게시글 추가 2.게시글 갯수확인 3.리스트 확인 4.seq로 글찾기 5.이름으로 글찾기 6.게시글 업데이트 7.게시글 삭제")){
@@ -31,27 +34,14 @@ public class BoardController {
 				JOptionPane.showMessageDialog(null, "등록된 게시글 수: "+service.countArticles());
 				break;
 			case "3": 
-				list =service.boardList();
-				sList = "";
-				int listCont = service.countArticles();
-				
-				for(int i=0; i<listCont; i++){
-					 sList += list[i].toString()+"\n";
-				}
-				JOptionPane.showMessageDialog(null, "리스트\n"+sList);
+				JOptionPane.showMessageDialog(null, "리스트\n"+service.boardList());
 				break;
 			case "4": 
 				int seq = Integer.parseInt(JOptionPane.showInputDialog("seq를 입력하세요"));
 				JOptionPane.showMessageDialog(null, "검색결과\n"+service.findBySeq(seq));
 				break;
 			case "5": 
-				list = service.findByWriter(JOptionPane.showInputDialog("글쓴이를 입력하세요"));
-				sList = "";
-				
-				for(int i=0; i<list.length; i++){
-					 sList += list[i].toString()+"\n";
-				}
-				JOptionPane.showMessageDialog(null, "리스트\n"+sList);
+				JOptionPane.showMessageDialog(null, "리스트\n"+service.findByWriter(JOptionPane.showInputDialog("검색할 글쓴이 입력하세요")));
 				break;
 			case "6": 
 				board = new BoardBean();

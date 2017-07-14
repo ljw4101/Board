@@ -1,5 +1,6 @@
 package com.hanbit.board.service;
 
+import java.util.List;
 import com.hanbit.board.domain.BoardBean;
 
 public interface BoardService {
@@ -8,8 +9,8 @@ public interface BoardService {
 	public void updateBoard(BoardBean bean);
 	public void deleteBoard(int seq);
 	//getter
-	public BoardBean[] boardList();
+	public List<BoardBean> boardList();
 	public int countArticles();
 	public BoardBean findBySeq(int seq);
-	public BoardBean[] findByWriter(String name);
+	public List<BoardBean> findByWriter(String name);
 }
